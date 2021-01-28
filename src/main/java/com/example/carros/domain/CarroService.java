@@ -32,7 +32,7 @@ public class CarroService {
 		return carros;
 	}
 
-	public Iterable<Carro> getCarroByTipo(String tipo) {
+	public List<Carro> getCarroByTipo(String tipo) {
 		return repository.findByTipo(tipo);
 	}
 
