@@ -3,10 +3,13 @@ package com.example.carros.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import com.example.carros.dto.CarroDTO;
 
 @Service
 public class CarroService {
@@ -14,12 +17,12 @@ public class CarroService {
 	@Autowired
 	private CarroRepository repository;
 
-	public Iterable<Carro> getCarros(){
-		return repository.findAll();
+	public List<CarroDTO> getCarros(){
+		return repository.findAll().stream().map(CarroDTO::create).collect(Collectors.toList());
 	}
 	
-	public Optional<Carro> getCarroById(Long id){
-		return repository.findById(id);
+	public Optional<CarroDTO> getCarroById(Long id){
+		return repository.findById(id).map(CarroDTO::create);
 	}
 	
 	public List<Carro> getCarrosFake(){
@@ -32,16 +35,16 @@ public class CarroService {
 		return carros;
 	}
 
-	public List<Carro> getCarroByTipo(String tipo) {
-		return repository.findByTipo(tipo);
+	public List<CarroDTO> getCarroByTipo(String tipo) {
+		return repository.findByTipo(tipo).stream().map(CarroDTO::create).collect(Collectors.toList());
 	}
 
-	public Carro insert(Carro carro) {
+	public CarroDTO insert(Carro carro) {
 		Assert.isNull(carro.getId(), "Não foi possível inserir o registro!");
-		return repository.save(carro);
+		return CarroDTO.create(repository.save(carro));
 	}
 
-	public Carro update(Carro carro, Long id) {
+	public CarroDTO update(Carro carro, Long id) {
 		
 		Assert.notNull(id, "Não foi possível atualizar o registro!");
 		
@@ -54,19 +57,20 @@ public class CarroService {
 			
 			repository.save(db);
 			
-			return db;
+			return CarroDTO.create(db);
 			
 		}else {
-			throw new RuntimeException("Não foi possível atualizar o registro!");
+			return null;
 		}
 
 	}
 
-	public void delete(Long id) {
+	public boolean delete(Long id) {
 		if(getCarroById(id).isPresent()) {
 			repository.deleteById(id);
+			return true;
 		}
-		
+		return false;
 	}
 
 }
