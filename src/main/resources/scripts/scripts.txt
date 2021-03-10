@@ -9,7 +9,36 @@ create table carros.carro
     latitude varchar(255),
     longitude varchar(255),
     tipo varchar(255));
+    
+    
+create table carros.carro_aud (
+       id int8 not null,
+        rev int4 not null,
+        revtype int2,
+        descricao varchar(255),
+        latitude varchar(255),
+        longitude varchar(255),
+        nome varchar(255),
+        tipo varchar(255),
+        url_foto varchar(255),
+        url_video varchar(255),
+        primary key (id, rev)
+)
 
+
+create table public.revinfo (
+       id int4 not null,
+        timestamp int8 not null,
+        cpf varchar(255),
+        usuario varchar(255),
+        primary key (id)
+)
+
+
+alter table carros.carro_aud 
+       add constraint FKn5mgm8fs4s7ak4vg76gg1g08h 
+       foreign key (rev) 
+       references revinfo
 
 ---Clássicos
 insert into carros.carro (nome,descricao,url_foto,url_video,latitude,longitude,tipo) VALUES('Chevrolet Corvette','Descrição Chevrolet Corvette','http://www.livroandroid.com.br/livro/carros/classicos/Chevrolet_Corvette.png','http://www.livroandroid.com.br/livro/carros/classicos/corvette.mp4','-23.564224','-46.653156','classicos');

@@ -63,12 +63,11 @@
 		  <version>2.3.0</version>
 		</dependency>
 		
-		<!-- H2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<!-- Auditoria -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-envers</artifactId>
+		</dependency>
 		
 	</dependencies>
 

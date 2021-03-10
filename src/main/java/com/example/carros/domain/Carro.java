@@ -2,11 +2,14 @@ package com.example.carros.domain;
 
 import javax.persistence.*;
 
+import org.hibernate.envers.Audited;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name="carro", schema="carros")
+@Audited
 public class Carro {
 	
 	@Id
